@@ -12,4 +12,11 @@ import monprojet.entity.Country;
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
 
+@Query(" SELECT SUM(population) " +
+        " FROM City c "
+    + " WHERE c.country.id = :pid")
+    public int populationparID(Integer pid);
+
+
+
 }

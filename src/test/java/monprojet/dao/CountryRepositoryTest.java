@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import monprojet.entity.*;
@@ -19,7 +20,8 @@ public class CountryRepositoryTest {
 
     @Autowired
     private CountryRepository countryDAO;
-
+    @Autowired
+    private CityRepository cityDAO;
     @Test
     void lesNomsDePaysSontTousDifferents() {
         log.info("On vérifie que les noms de pays sont tous différents ('unique') dans la table 'Country'");
@@ -42,5 +44,18 @@ public class CountryRepositoryTest {
         long nombre = countryDAO.count();
         assertEquals(combienDePaysDansLeJeuDeTest, nombre, "On doit trouver 4 pays" );
     }
+@Test
+@Sql("test-data.sql")
+void TestComptagePopulation(){
+        Country Italie = countryDAO.findById(4).orElseThrow();
+        City florence = new City("florence",Italie);
+        florence.setPopulation(12);
+        countryDAO.save(Italie);
+        cityDAO.save(florence);
+        assertEquals(12,
+               countryDAO.populationparID(Italie.getId()),
+                "pas bon nombre de population");
+}
+
 
 }

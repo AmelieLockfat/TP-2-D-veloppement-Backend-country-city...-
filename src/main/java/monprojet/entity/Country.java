@@ -31,4 +31,7 @@ public class Country {
     @ToString.Exclude // On ne veut pas inclure la liste des villes dans le toString
     // Sinon récursivité infinie    
     private List<City> cities = new ArrayList<>();
+
+
+
 }

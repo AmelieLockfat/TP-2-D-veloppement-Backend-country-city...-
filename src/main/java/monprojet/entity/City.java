@@ -26,4 +26,10 @@ public class City {
     @NonNull
     @ManyToOne(optional = false) // obligatoire, la clé étrangère ne doit pas être nulle
     Country country;
+
+    public City(String kiev, int i, Country c1) {
+        this.name=kiev;
+        this.population=i;
+        this.country=c1;
+    }
 }
