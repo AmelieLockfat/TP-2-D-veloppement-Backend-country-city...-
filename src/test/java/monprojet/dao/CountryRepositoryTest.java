@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import monprojet.dto.PopulationPays;
 import monprojet.entity.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
@@ -58,4 +59,52 @@ void TestComptagePopulation(){
 }
 
 
+
+@Test
+@Sql("test-data.sql")
+void testPopPourTousLesPays(){
+    PopulationPays testFr = new PopulationPays() {
+        @Override
+        public String getNom() {
+            return "France";
+        }
+
+        @Override
+        public Integer getPopulation() {
+            return 12;
+        }
+    };
+    PopulationPays testUk = new PopulationPays() {
+        @Override
+        public String getNom() {
+            return "United Kingdom";
+        }
+
+        @Override
+        public Integer getPopulation() {
+            return 18;
+        }
+    };
+    PopulationPays testUs = new PopulationPays() {
+        @Override
+        public String getNom() {
+            return "United States of America";
+        }
+
+        @Override
+        public Integer getPopulation() {
+            return 27;
+        }
+    };
+    assertEquals(testFr.getNom(), countryDAO.listePopulationPays().get(0).getNom());
+    assertEquals(testFr.getPopulation(), countryDAO.listePopulationPays().get(0).getPopulation());
+
+    assertEquals(testUk.getNom(), countryDAO.listePopulationPays().get(1).getNom());
+    assertEquals(testUk.getPopulation(), countryDAO.listePopulationPays().get(1).getPopulation());
+
+    assertEquals(testUs.getNom(), countryDAO.listePopulationPays().get(2).getNom());
+    assertEquals(testUs.getPopulation(), countryDAO.listePopulationPays().get(2).getPopulation());
 }
+}
+
+
